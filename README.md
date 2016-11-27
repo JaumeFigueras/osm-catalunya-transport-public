@@ -52,7 +52,7 @@ Unfortunately not all GTFS files are 100% standard compliant. For example,
 the TMB dataset do not provide a valid `agency_id` in the `routes.txt` file.
 
 #### TMB Files
-* Add agnecy_id to the routes
+* Add `agnecy_id` to the routes
 ```SQL
 UPDATE routes SET agency_id = 1;
 ```
