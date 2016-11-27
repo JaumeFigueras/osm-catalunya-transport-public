@@ -15,6 +15,7 @@ Government
 4. [Generalitat de Catalunya](http://www.gencat.cat) provide a [propietary
 format dataset](http://dadesobertes.gencat.cat/ca/cercador/detall-cataleg/?id=7372)
 with interurban bus lines of Catalonia
+
 ## Other datasources
 Less structured data that can be found in other opendata portals
 1. [Terrassa](http://www.terrassa.cat) city council provide a [shapefile](https://opendata.terrassa.cat/MOBILITAT_I_TRANSPORT/Transports-P-blics-de-Terrassa-Transportes-P-blico/7tbd-7azw)
