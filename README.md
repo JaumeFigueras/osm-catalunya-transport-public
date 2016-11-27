@@ -1,6 +1,7 @@
 # osm-catalunya-transport-public
 Tools to import and mantain public transport data from opendata in differents
 formats to OpenStreetMap
+
 ## Main data sources
 1. [AMB](http://www.amb.cat) (Autoritat Metropolitana de Barcelona) provides a
 [GTFS dataset](http://www.amb.cat/ca/web/area-metropolitana/dades-obertes/cataleg/detall/-/dataset/informacio-de-companyies--linies-i-recorreguts/1033377/11692)
@@ -18,6 +19,7 @@ with interurban bus lines of Catalonia
 
 ## Other datasources
 Less structured data that can be found in other opendata portals
+
 1. [Terrassa](http://www.terrassa.cat) city council provide a [shapefile](https://opendata.terrassa.cat/MOBILITAT_I_TRANSPORT/Transports-P-blics-de-Terrassa-Transportes-P-blico/7tbd-7azw)
 and a [data table](https://opendata.terrassa.cat/MOBILITAT_I_TRANSPORT/Parades-i-horaris-bus-Paradas-y-horarios-bus-Bus-s/b6md-6f8c)
 with the city bus lines and schedule
