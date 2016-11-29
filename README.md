@@ -60,7 +60,12 @@ UPDATE routes SET agency_id = 1;
 * AMB trips file do not provide a headsign. This headsign is necessary to create
 the OSM route for the `to` and `from` attributes text. The solution of This
 problem must have a manual check so a CSV file is used
-*Step 1:* Run the select query
+
+*Step 1:* Run the select query (through a shell or with a client)
+
+```sh
+psql -h localhost -p 5432 -W -U your_username amb -f ../queries/select-itinerary.sql > itiniraris.csv
+```
 ```SQL
 COPY (SELECT routes.route_short_name, routes.route_long_name, agency.agency_name,
   CASE WHEN trips.direction_id = 0 THEN TRIM(split_part(routes.route_long_name, '-', 2), ' ')
@@ -76,7 +81,7 @@ TO STDOUT
 DELIMITER ','
 CSV;
 ```
-*Step 2:* Check the CSV file and modify it
+*Step 2:* Check the CSV file and modify it with an editor (LibreOffice, Excel, gedit...)
 
 *Step 3:* Run the update query
 
