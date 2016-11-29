@@ -56,3 +56,29 @@ the TMB dataset do not provide a valid `agency_id` in the `routes.txt` file.
 ```SQL
 UPDATE routes SET agency_id = 1;
 ```
+#### AMB files
+* AMB trips file do not provide a headsign. This headsign is necessary to create
+the OSM route for the `to` and `from` attributes text. The solution of This
+problem must have a manual check so a CSV file is used
+*Step 1:* Run the select query
+```SQL
+COPY (SELECT routes.route_short_name, routes.route_long_name, agency.agency_name,
+  CASE WHEN trips.direction_id = 0 THEN TRIM(split_part(routes.route_long_name, '-', 2), ' ')
+  ELSE TRIM(split_part(routes.route_long_name, '-', 1), ' ')
+  END AS hint, trips.direction_id
+FROM routes
+INNER JOIN agency ON routes.agency_id = agency.agency_id
+INNER JOIN trips ON routes.route_id = trips.route_id
+INNER JOIN patterns ON trips.shape_id = patterns.shape_id
+GROUP BY patterns.geom, routes.route_short_name, routes.route_long_name, agency.agency_name, hint, trips.direction_id
+ORDER BY routes.route_short_name, agency.agency_name, trips.direction_id)
+TO STDOUT
+DELIMITER ','
+CSV;
+```
+*Step 2:* Check the CSV file and modify it
+
+*Step 3:* Run the update query
+
+## ERRORS found
+1. AMB - SF2 - Only have one whilst there are three (mondays, saturdays and other days)
