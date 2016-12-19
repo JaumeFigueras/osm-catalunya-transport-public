@@ -83,7 +83,34 @@ CSV;
 ```
 *Step 2:* Check the CSV file and modify it with an editor (LibreOffice, Excel, gedit...)
 
-*Step 3:* Run the update query
+*Step 3:* This step should be just a quary, but if you try to create a temporary
+table and a copy a csv from stdin in one script, the copy script consumes the
+the script instead of the input. So first create a table:
+```sh
+psql -h localhost -p 5432 -W -U gtfsuser amb -f ../queries/update-trip-headsign-1.sql
+```
+```SQL
+CREATE TABLE tmp_trips (route_id varchar(255), route_short_name varchar(255), route_long_name varchar(255), agency_nameas varchar(255), headsign varchar(255), direction int);
+```
+*Step 4:* Copy the data
+```sh
+cat itiniraris-update.csv | psql -h localhost -p 5432 -W -U gtfsuser amb -c "COPY tmp_trips FROM STDIN (FORMAT csv, DELIMITER ',', QUOTE '\"');"
+```
+
+*Step 5:* Update the trips table
+```sh
+psql -h localhost -p 5432 -W -U gtfsuser amb -f ../queries/update-trip-headsign-3.sql
+```
+```SQL
+UPDATE trips
+SET trip_headsign = tmp_trips.headsign
+FROM tmp_trips
+WHERE trips.route_id = tmp_trips.route_id
+  AND trips.direction_id = tmp_trips.direction
+;
+
+DROP TABLE tmp_trips;
+```
 
 ## ERRORS found
 1. AMB - SF2 - Only have one whilst there are three (mondays, saturdays and other days)
